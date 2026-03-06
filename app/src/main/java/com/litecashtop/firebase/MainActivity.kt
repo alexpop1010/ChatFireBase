@@ -16,6 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.litecashtop.firebase.ui.theme.FireBaseTheme
 import androidx.compose.foundation.lazy.items
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,7 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+
     }
 }
 
@@ -48,9 +52,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier, chatViewModel: ChatVie
             onClick = {chatViewModel.sendMessage(chatViewModel.message.value)}){
                 Text("Отправить сообщение")
             }
+
         LazyColumn{
-            items(chatViewModel.messageStorage){
-                it -> Text(it)
+            items(chatViewModel.messageStorage){it ->
+                Text(it.text, modifier = Modifier.padding(start=200.dp))
+
             }
 
         }
