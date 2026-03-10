@@ -16,8 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.litecashtop.firebase.ui.theme.FireBaseTheme
 import androidx.compose.foundation.lazy.items
-import com.google.firebase.Firebase
-import com.google.firebase.database.database
+import androidx.compose.ui.platform.LocalContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +38,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier, chatViewModel: ChatViewModel = viewModel()) {
+    val context = LocalContext.current
     Column(modifier){
         Text(
             text = name
@@ -49,13 +49,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier, chatViewModel: ChatVie
             label = {Text("")}
         )
         Button(
-            onClick = {chatViewModel.sendMessage(chatViewModel.message.value)}){
+            onClick = {chatViewModel.sendMessage(chatViewModel.message.value, context)}){
                 Text("Отправить сообщение")
             }
 
         LazyColumn{
             items(chatViewModel.messageStorage){it ->
-                Text(it.text, modifier = Modifier.padding(start=200.dp))
+                MessageItem(it)
 
             }
 

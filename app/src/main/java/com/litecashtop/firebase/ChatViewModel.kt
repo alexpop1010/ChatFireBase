@@ -1,7 +1,9 @@
 package com.litecashtop.firebase
 
+import android.content.Context
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,18 +16,26 @@ class ChatViewModel: ViewModel() {
     fun messageChanged(text: String){
         message.value = text
     }
+
     init { receiveMessage(DataBase.ref) }
 
-    fun sendMessage(text: String){
-        DataBase.setText(text)
+    fun sendMessage(text: String, context: Context){
+        val msg = SentMessage(text, UserManager.getUserId(context), System.currentTimeMillis())
+        DataBase.setText(msg)
     }
     fun receiveMessage(dRef: DatabaseReference){
         dRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                messageStorage.add(SentMessage(snapshot.value.toString()))
+                messageStorage.clear()
+                for (child in snapshot.children) {
 
+                    val msg = child.getValue(SentMessage::class.java)
+
+                    if (msg != null) {
+                        messageStorage.add(msg)
+                    }
+                }
             }
-
             override fun onCancelled(error: DatabaseError) {
 
             }

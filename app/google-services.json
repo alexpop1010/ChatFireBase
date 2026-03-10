@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "133490508224",
+    "project_id": "chat-a5e1f",
+    "storage_bucket": "chat-a5e1f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133490508224:android:211ba51d8d52e39c724825",
+        "android_client_info": {
+          "package_name": "com.litecashtop.firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwCRpy7tRKqF6oY9nYQh0hcDjUWuE0JSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
